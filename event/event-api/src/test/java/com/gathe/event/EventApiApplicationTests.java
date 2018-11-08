@@ -1,4 +1,4 @@
-package com.gathe.eventapi;
+package com.gathe.event;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

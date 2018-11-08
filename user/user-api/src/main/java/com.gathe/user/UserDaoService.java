@@ -1,4 +1,4 @@
-package com.gathe.eventapi.User;
+package com.gathe.user;
 
 import org.springframework.stereotype.Component;
 

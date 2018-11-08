@@ -1,4 +1,4 @@
-package com.gathe.eventapi.User;
+package com.gathe.user;
 
 import java.util.Date;
 
