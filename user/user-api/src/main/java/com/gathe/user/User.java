@@ -28,10 +28,12 @@ public class User {
 
     }
 
-    public User(Integer id, String firstName) {
+    public User(long id, String email, String firstName, String lastName ) {
         super();
         this.id = id;
+        this.email = email;
         this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public User(Integer id) {

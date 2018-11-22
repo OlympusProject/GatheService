@@ -11,15 +11,30 @@ public class UserDaoService {
     private static List<User> users = new ArrayList<>();
     private int userCount = 3;
 
+    /***
+     * add dummy data
+     */
     static {
-        users.add(new User(1, "Teguh"));
-        users.add(new User(2, "Teguh 1"));
-        users.add(new User(3, "Teguh 2"));
+        users.add(new User(1, "teguh1@gmail.com", "Teguh", "Satu"));
+        users.add(new User(2, "teguh2@gmail.com", "Teguh", "Dua"));
+        users.add(new User(3, "teguh3@gmail.com", "Teguh", "Tiga"));
+
     }
+
+    /***
+     * function to retrieve all user
+     * @return
+     */
 
     public List<User> findAll() {
         return users;
     }
+
+    /***
+     * add new user
+     * @param user
+     * @return
+     */
 
     public User save(User user) {
         if (user.getId() == 0) {
@@ -30,7 +45,7 @@ public class UserDaoService {
     }
 
     /***
-     *
+     * function to find a single user
      * @param id
      * @return user
      */
@@ -45,7 +60,7 @@ public class UserDaoService {
     }
 
     /***
-     *
+     * function to delete user
      * @param id
      * @return
      */
