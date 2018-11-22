@@ -1,43 +1,55 @@
 package com.gathe.user;
 
 
+import com.gathe.user.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
 @RestController
-public class UserResource {
+public class UserController {
 
     @Autowired
     private UserDaoService service;
 
     @GetMapping("/users")
-    public List<UserProfile> retrieveAllUsers() {
+    public List<User> retrieveAllUsers() {
         return service.findAll();
     }
 
     @GetMapping("/users/{id}")
-    public UserProfile retrieveUser(@PathVariable int id) {
-        UserProfile userProfile = service.findUser(id);
-        if(userProfile == null) {
+    public User retrieveUser(@PathVariable int id) {
+        User user = service.findUser(id);
+        if(user == null) {
             throw new UserNotFoundException("id-" + id);
         }
-            return userProfile;
+            return user;
 
     }
 
+
+
     @PostMapping("/users")
-    public ResponseEntity<Object> createUser(@RequestBody UserProfile userProfile) {
-        UserProfile savedUserProfile = service.save(userProfile);
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
+        User savedUser = service.save(user);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(savedUserProfile.getId()).toUri();
+                .buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/users/delete/{id}")
+    public void deleteUser(@PathVariable int id) {
+        User user = service.deleteById(id);
+        if(user == null) {
+            throw new UserNotFoundException("id-" + id);
+        }
     }
 }

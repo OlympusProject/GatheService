@@ -1,35 +1,46 @@
 package com.gathe.user;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
-public class UserProfile {
-    private Integer id;
+public class User {
+    private long id;
+
+    @Email
     private String email;
+
+    @Size(min = 2)
     private String firstName;
+
     private String middleName;
     private String lastName;
+
+    @Past
     private Date birthDate;
+
     private String interest;
     private String address;
     private String profilePhoto;
 
-    protected UserProfile(){
+    protected User(){
 
     }
 
-    public UserProfile(Integer id, String firstName) {
+    public User(Integer id, String firstName) {
         super();
         this.id = id;
         this.firstName = firstName;
     }
 
-    public UserProfile(Integer id) {
+    public User(Integer id) {
         this.id = id;
     }
 
 
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
