@@ -4,5 +4,6 @@ public enum Status {
 
     OWNER,
     ADMIN_1,
-    MEMBER;
+    MEMBER,
+    JOINING;
 }

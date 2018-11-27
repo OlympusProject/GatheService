@@ -3,24 +3,51 @@ package com.gathe.community.domain;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-public class Community {
+public class Community implements Domain {
 
     // -- members ----------------------------------------------------------------------------------
     private Long id;
     private String name;
     private List<String> interests;
-    private List<Member> members;
-    private List<User> joiningUser;
+    private List<MemberCommunityHolder> members;
+    private List<MemberCommunityHolder> joiningUsers;
     private String about;
     private OffsetDateTime created;
     private OffsetDateTime deleted;
     private OffsetDateTime modified;
 
 
-    public void addJoiningUser(User user){
+
+
+
+    public boolean addJoiningUser(User user){
         if (user != null) {
-            this.joiningUser.add(user);
+            MemberCommunityHolder holder = new MemberCommunityHolder(user, this);
+            return this.joiningUsers.add(holder);
         }
+        return false;
+    }
+
+    public boolean promoteMembership(User user) {
+        boolean result = false;
+        MemberCommunityHolder holder = null;
+        if (user != null) {
+            for (MemberCommunityHolder curHolder : this.joiningUsers) {
+                User curUser = curHolder.getUser();
+                if (curUser.equals(user)) {
+                    Member member = new Member(curUser);
+                    member.addCommunityHolder(curHolder);
+                    member.setJoiningTime();
+                    curHolder.setUser(member);
+                    curHolder.setStatus(Status.MEMBER);
+                    result = this.members.add(curHolder);
+                    holder = curHolder;
+                    break;
+                }
+            }
+            result = result && this.joiningUsers.remove(holder);
+        }
+        return result;
     }
 
     public int getNbOfMembers() {
@@ -29,6 +56,10 @@ public class Community {
         else
             return 0;
     }
+
+
+
+
 
 
     // -- getters & setters -------------------------------------------------------------------------
@@ -48,12 +79,28 @@ public class Community {
         this.name = name;
     }
 
-    public List<Member> getMembers() {
+    public List<String> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
+    }
+
+    public List<MemberCommunityHolder> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Member> members) {
+    public void setMembers(List<MemberCommunityHolder> members) {
         this.members = members;
+    }
+
+    public List<MemberCommunityHolder> getJoiningUsers() {
+        return joiningUsers;
+    }
+
+    public void setJoiningUsers(List<MemberCommunityHolder> joiningUsers) {
+        this.joiningUsers = joiningUsers;
     }
 
     public String getAbout() {

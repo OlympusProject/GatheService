@@ -1,7 +1,10 @@
 package com.gathe.community.repository.impl;
 
 import com.gathe.community.domain.Community;
+import com.gathe.community.domain.User;
 import com.gathe.community.repository.CommunityRepo;
+import com.gathe.community.service.UserService;
+import com.gathe.community.service.impl.UserServiceImplStub;
 import org.springframework.stereotype.Repository;
 
 import java.time.OffsetDateTime;
@@ -15,11 +18,26 @@ public class CommunityRepoImpl implements CommunityRepo {
 
     static {
         stub = new ArrayList<>();
-        Community community = new Community();
+        Community community;
+        User user;
+        community = new Community();
         community.setId(1L);
         community.setName("ONE OK POP");
         community.setAbout("We are absolute fans of ONE OK POP");
         community.setCreated(OffsetDateTime.now());
+        stub.add(community);
+
+        community = new Community();
+        community.setId(2L);
+        community.setName("Adventure");
+        community.setAbout("Hiking, Diving, Exploring etc");
+        UserService userService = new UserServiceImplStub();
+        user = userService.find(1L);
+        community.addJoiningUser(user);
+        community.promoteMembership(user);
+        user = userService.find(2L);
+        community.addJoiningUser(user);
+        community.promoteMembership(user);
         stub.add(community);
     }
 

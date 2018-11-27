@@ -1,6 +1,6 @@
 package com.gathe.community.domain;
 
-public class User {
+public class User implements Domain {
 
     protected Long id;
     protected String email;
