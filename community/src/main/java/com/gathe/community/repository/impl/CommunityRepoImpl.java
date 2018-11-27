@@ -63,9 +63,18 @@ public class CommunityRepoImpl implements CommunityRepo {
     @Override
     public Community find (Long id) {
         for (Community cur : stub) {
-            if (cur.getId().equals(id)) return cur;
+            if (cur.getId().equals(id)) return new Community(cur);
         }
         return null;
+    }
+
+    @Override
+    public List<Community> findAll() {
+        List<Community> clone = new ArrayList<>();
+        for (Community cur : stub) {
+            clone.add(new Community(cur));
+        }
+        return clone;
     }
 
     @Override

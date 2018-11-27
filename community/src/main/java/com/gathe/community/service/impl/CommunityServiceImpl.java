@@ -33,6 +33,11 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public List<Community> findAll() {
+        return communityRepo.findAll();
+    }
+
+    @Override
     public List<Community> find(int page, int size) {
         return null;
     }

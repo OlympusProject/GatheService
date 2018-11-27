@@ -1,6 +1,7 @@
 package com.gathe.community.domain;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Community implements Domain {
@@ -8,9 +9,9 @@ public class Community implements Domain {
     // -- members ----------------------------------------------------------------------------------
     private Long id;
     private String name;
-    private List<String> interests;
-    private List<MemberCommunityHolder> members;
-    private List<MemberCommunityHolder> joiningUsers;
+    private List<String> interests = new ArrayList<>();
+    private List<MemberCommunityHolder> members = new ArrayList<>();
+    private List<MemberCommunityHolder> joiningUsers = new ArrayList<>();
     private String about;
     private OffsetDateTime created;
     private OffsetDateTime deleted;
@@ -20,6 +21,27 @@ public class Community implements Domain {
 
 
 
+    // -- constructors ----------------------------------------------------------------------------- //
+    public Community() {
+    }
+
+    // copy constructor
+    public Community (Community obj) {
+        this.id = obj.id;
+        this.name = obj.name;
+        this.interests = new ArrayList<>(obj.interests);
+        this.members = new ArrayList<>(obj.members);
+        this.joiningUsers = new ArrayList<>(obj.joiningUsers);
+        this.about = obj.about;
+        this.created = obj.created;
+        this.deleted = obj.deleted;
+        this.modified = obj.modified;
+    }
+
+
+
+
+    // -- others ------------------------------------------------------------------------------------ //
     public boolean addJoiningUser(User user){
         if (user != null) {
             MemberCommunityHolder holder = new MemberCommunityHolder(user, this);

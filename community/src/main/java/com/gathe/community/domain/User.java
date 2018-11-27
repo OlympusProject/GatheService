@@ -5,6 +5,7 @@ public class User implements Domain {
     protected Long id;
     protected String email;
     protected String name;
+    protected String photo;
 
 
 
@@ -30,5 +31,13 @@ public class User implements Domain {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

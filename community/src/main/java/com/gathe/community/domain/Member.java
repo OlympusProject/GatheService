@@ -23,6 +23,7 @@ public class Member extends User {
         this.id = user.id;
         this.email = user.email;
         this.name = user.name;
+        this.photo = user.photo;
     }
 
     public Member joinCommunity(Community community) {

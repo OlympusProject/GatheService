@@ -10,6 +10,8 @@ public interface CommunityRepo {
 
     Community find (Long id);
 
+    List<Community> findAll();
+
     List<Community> find (List<String> interest);
 
 }

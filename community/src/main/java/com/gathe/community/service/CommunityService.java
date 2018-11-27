@@ -13,5 +13,7 @@ public interface CommunityService {
 
     Community find(Long id);
 
+    List<Community> findAll();
+
     List<Community> find(int page, int size);
 }

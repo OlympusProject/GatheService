@@ -17,6 +17,18 @@ public class MemberCommunityHolder {
         this.status = Status.JOINING;
     }
 
+
+
+    public Member getMember() {
+        if (isMember()) return (Member) user;
+        else return null;
+    }
+
+    public boolean isMember() {
+        return status != Status.JOINING;
+    }
+
+
     // -- getters & setters -------------------------------------------------------------------------
     public User getUser() {
         return user;
