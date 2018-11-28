@@ -1,6 +1,8 @@
-package com.gathe.user;
+package com.gathe.user.controller;
 
 
+import com.gathe.user.domain.User;
+import com.gathe.user.repository.impl.UserRepoStub;
 import com.gathe.user.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserDaoService service;
+    private UserRepoStub service;
 
     @GetMapping("/users")
     public List<User> retrieveAllUsers() {
@@ -24,8 +26,8 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable int id) {
-        User user = service.findUser(id);
+    public User retrieveUser(@PathVariable Long id) {
+        User user = service.findById(id);
         if(user == null) {
             throw new UserNotFoundException("id-" + id);
         }
@@ -44,7 +46,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/delete/{id}")
-    public void deleteUser(@PathVariable int id) {
+    public void deleteUser(@PathVariable Long id) {
         User user = service.deleteById(id);
         if(user == null) {
             throw new UserNotFoundException("id-" + id);

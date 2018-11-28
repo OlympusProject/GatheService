@@ -1,13 +1,15 @@
-package com.gathe.user;
+package com.gathe.user.repository.impl;
 
-import org.springframework.stereotype.Component;
+import com.gathe.user.domain.User;
+import com.gathe.user.repository.UserRepo;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-@Component
-public class UserDaoService {
+@Repository
+public class UserRepoStub implements UserRepo {
     private static List<User> users = new ArrayList<>();
     private int userCount = 3;
 
@@ -15,17 +17,16 @@ public class UserDaoService {
      * add dummy data
      */
     static {
-        users.add(new User(1, "teguh1@gmail.com", "Teguh", "Satu"));
-        users.add(new User(2, "teguh2@gmail.com", "Teguh", "Dua"));
-        users.add(new User(3, "teguh3@gmail.com", "Teguh", "Tiga"));
-
+        users.add(new User(Long.parseLong(String.valueOf(1)), "teguh1@gmail.com", "Teguh", "Satu"));
+        users.add(new User(Long.parseLong(String.valueOf(2)), "teguh2@gmail.com", "Teguh", "Dua"));
+        users.add(new User(Long.parseLong(String.valueOf(3)), "teguh3@gmail.com", "Teguh", "Tiga"));
     }
 
     /***
      * function to retrieve all user
      * @return
      */
-
+    @Override
     public List<User> findAll() {
         return users;
     }
@@ -35,10 +36,10 @@ public class UserDaoService {
      * @param user
      * @return
      */
-
+    @Override
     public User save(User user) {
         if (user.getId() == 0) {
-            user.setId(userCount++);
+            user.setId(Long.parseLong(String.valueOf(userCount++)));
         }
         users.add(user);
         return user;
@@ -50,7 +51,8 @@ public class UserDaoService {
      * @return user
      */
 
-    public User findUser(int id) {
+    @Override
+    public User findById(Long id) {
         for (User user : users) {
             if (user.getId() == id) {
                 return user;
@@ -64,8 +66,8 @@ public class UserDaoService {
      * @param id
      * @return
      */
-
-    public User deleteById(int id) {
+@Override
+    public User deleteById(Long id) {
         Iterator<User> iterator = users.iterator();
         while (iterator.hasNext()) {
             User user = iterator.next();
