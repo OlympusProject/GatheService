@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>OAuth Register</title>
+    <style>
+        .error-msg {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Client Register</h1>
+
+    <form id="client-register-form" method="post" th:action="@{/web/admin/client/account/register}" th:object="${client}">
+        <div id="client-id-block">
+            <input id="client-id" type="text" th:field="*{clientId}" placeholder="Enter Client Id..." required />
+            <span id="client-id-error" class="error-msg" th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}"><!-- default error message -->Client Id error</span>
+            <br/>
+        </div>
+        <div id="client-name-block">
+            <input id="client-name" type="text" th:field="*{name}" placeholder="Enter Name..." required />
+            <br/>
+        </div>
+        <div id="client-email-block">
+            <input id="client-email" type="email" th:field="*{email}" placeholder="Enter Email..." required />
+            <span id="client-email-error" class="error-msg" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"><!-- default error message -->Email error</span>
+            <br/>
+        </div>
+        <div id="client-secret-block">
+            <input id="client-secret" type="password" th:field="*{clientSecret}" placeholder="Enter Client Secret..." required />
+            <span id="client-secret-error" class="error-msg" th:if="${#fields.hasErrors('clientSecret')}" th:errors="*{clientSecret}"><!-- default error message -->Client Secret error</span>
+            <br/>
+        </div>
+        <div id="client-confirm-block">
+            <input id="client-secret-confirm" type="password" th:field="*{clientSecretConfirmation}" placeholder="Reenter Client Secret..." required />
+            <span id="client-secret-confirm-error" class="error-msg" th:if="${#fields.hasErrors('clientSecretConfirmation')}" th:errors="*{clientSecretConfirmation}"><!-- default error message -->Client Secret Confirmation error</span>
+            <br/>
+        </div>
+
+        <!--<button type="submit">Submit</button>-->
+        <input type="submit" th:value="Register" />
+    </form>
+</body>
+</html>
